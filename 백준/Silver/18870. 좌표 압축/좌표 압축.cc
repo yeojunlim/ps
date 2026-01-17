@@ -7,14 +7,13 @@ int main()
 
     int N;
     vector<int> v1, v2;
-    int e;
 
     cin >> N;
+    v2.resize(N);
     for (int i = 0; i < N; i++)
     {
-        cin >> e;
-        v1.push_back(e);
-        v2.push_back(e);
+        cin >> v2[i];
+        v1.push_back(v2[i]);
     }
     
     sort(v1.begin(), v1.end());
