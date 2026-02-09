@@ -8,16 +8,11 @@ int main() {
     int before = 0, mx = INT_MIN;
 
     cin >> n;
-    if (n == 1) {
-        cin >> a;
-        cout << a;
-        return 0;
-    }
 
     for (int i = 0; i < n; i++) {
         cin >> a;
-        mx = max(mx, max(before + a, a));
         before = max(before + a, a);
+        mx = max(mx, before);
     }
     
     cout << mx;
