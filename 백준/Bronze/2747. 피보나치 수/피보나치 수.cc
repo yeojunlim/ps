@@ -3,16 +3,16 @@ using namespace std;
 using ull = unsigned long long;
 
 ull fib(short n) {
-    if (n == 0 || n == 1) {
-        return n;
+    if (n == 0) {
+        return 0;
     }
 
-    static vector<ull> dp(n + 1, 0);
-    if (dp[n]) {
-        return dp[n];
+    ull a = 0, b = 1;
+    for (int i = 1; i < n; i++) {
+        tie(a, b) = make_tuple(b, a + b);
     }
 
-    return dp[n] = fib(n - 1) + fib(n - 2);
+    return b;
 }
 
 int main() {
