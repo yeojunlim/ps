@@ -11,7 +11,12 @@ int main() {
     if (T <= 30) {
         cout << A;
     } else if (T > 30) {
-        cout << A + ceil((double)(T - 30) / B) * C;
+        if ((T - 30) % B != 0) {
+            cout << A + ceil((double)(T - 30) / B) * C;
+            return 0;
+        } else {
+            cout << A + (T - 30) / B * C;
+        }
     }
 
     return 0;
