@@ -1,68 +1,57 @@
-#include <cstdio>
-#include <unordered_set>
-#include <set>
-#include <queue>
-#define MAXN 1001
-
+#include <bits/stdc++.h>
 using namespace std;
 
-int N,M,V,A,B;
-set<int> graph[MAXN];
-unordered_set<int> visited;
+vector<set<int>> adj;
 
-void dfs(int node, unordered_set<int>& v)
-{
-    v.insert(node);
-    printf("%d ", node);
+vector<bool> visited;
+void dfs(int u) {
+    visited[u] = true;
+    cout << u << ' ';
 
-    for (int n : graph[node])
-    {
-        if (v.count(n) == 0)
-        {
-            dfs(n, v);
+    for (int v : adj[u]) {
+        if (!visited[v]) {
+            dfs(v);
         }
     }
 }
 
-void bfs()
-{
+void bfs(int u) {
     queue<int> q;
+    q.push(u);
+    visited[u] = true;
 
-    visited.insert(V);
-    q.push(V);
+    while (!q.empty()) {
+        int now = q.front(); q.pop();
+        cout << now << ' ';
 
-    while (!q.empty())
-    {
-        int node = q.front();
-        q.pop();
-        printf("%d ", node);
-        for (int n : graph[node])
-        {
-            if (visited.count(n) == 0)
-            {
-                visited.insert(n);
-                q.push(n);
+        visited[now] = true;
+        for (int v : adj[now]) {
+            if (!visited[v]) {
+                q.push(v);
+                visited[v] = true; 
             }
         }
     }
 }
 
-int main()
-{
-    scanf("%d %d %d", &N, &M, &V);
-    for (int i=0;i<M;i++)
-    {
-        scanf("%d %d", &A, &B);
-        graph[A].insert(B);
-        graph[B].insert(A);
+int main() {
+    cin.tie(nullptr)->sync_with_stdio(false);
+
+    int N, M, V, u, v;
+
+    cin >> N >> M >> V;
+    adj.resize(N + 1);
+    visited.resize(N + 1);
+    while (M--) {
+        cin >> u >> v;
+        adj[u].insert(v);
+        adj[v].insert(u);
     }
 
-    dfs(V, visited);
-    printf("\n");
-    visited.clear();
-
-    bfs();
-    printf("\n");
+    dfs(V);
+    cout << '\n';
+    visited.assign(N + 1, false);
+    bfs(V);
 
     return 0;
 }
